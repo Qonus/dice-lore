@@ -5,12 +5,13 @@ import { cn } from "@/lib/utils";
 import axios from "axios";
 import { Send } from "lucide-react";
 import { FormEvent, useState } from "react";
+import { useMainContext } from "../context";
 import Textarea from "../textarea";
 
 export default function CampaignForm() {
   const [content, setContent] = useState("");
   const [isLoading, setIsLoading] = useState(false);
-  const [campaign, setCampaign] = useState("");
+  const {campaign, setCampaign} = useMainContext();
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
@@ -35,7 +36,7 @@ export default function CampaignForm() {
         },
       ],
     });
-    console.log(newCampaign.data);
+    // console.log(newCampaign.data);
     setCampaign(newCampaign.data);
     setIsLoading(false);
   };

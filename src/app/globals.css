@@ -112,6 +112,12 @@
   --sidebar-ring: oklch(0.554 0.135 66.442);
 }
 
+@layer utilities {
+  .container {
+    @apply m-auto p-4 max-w-200
+  }
+}
+
 @layer components {
   h1 {
     @apply text-3xl

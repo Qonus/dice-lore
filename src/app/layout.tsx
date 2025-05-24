@@ -1,3 +1,4 @@
+import { MainProvider } from "@/components/context";
 import type { Metadata } from "next";
 import { ThemeProvider } from "next-themes";
 import { Geist, Geist_Mono } from "next/font/google";
@@ -29,7 +30,9 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         <ThemeProvider attribute="class" defaultTheme="dark">
+          <MainProvider>
           {children}
+          </MainProvider>
         </ThemeProvider>
       </body>
     </html>
