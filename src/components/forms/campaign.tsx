@@ -5,7 +5,7 @@ import { cn } from "@/lib/utils";
 import axios from "axios";
 import { Send } from "lucide-react";
 import { FormEvent, useState } from "react";
-import TextareaAutosize from "react-textarea-autosize";
+import Textarea from "../textarea";
 
 export default function CampaignForm() {
   const [content, setContent] = useState("");
@@ -43,15 +43,11 @@ export default function CampaignForm() {
   return (
     <div className="p-5 border rounded">
       <form onSubmit={handleSubmit} className="p-5 flex gap-3 items-center">
-        <div className="rounded-xl bg-card p-3 w-full">
-            <TextareaAutosize
-            className="w-full"
-            placeholder="Enter your prompt to generate your campaign..."
-            maxRows={10}
-            value={content}
-            onChange={(e) => setContent(e.target.value)}
-            />
-          </div>
+        <Textarea
+          placeholder="Enter your prompt to generate your campaign..."
+          value={content}
+          onChange={(e) => setContent(e.target.value)}
+        />
         <button
           type="submit"
           className={cn("rounded-xl", isLoading ? "bg-muted" : "")}
@@ -62,15 +58,11 @@ export default function CampaignForm() {
       </form>
       <div className="max-h-100 overflow-y-scroll p-4">
         <h2 className="mb-4">Your Campaign:</h2>
-        <div className="rounded-xl bg-card p-3 w-full">
-            <TextareaAutosize
-            className="w-full"
-            placeholder="Write your campaign..."
-            maxRows={10}
-            value={campaign}
-            onChange={(e) => setCampaign(e.target.value)}
-            />
-          </div>
+        <Textarea
+          placeholder="Write your campaign..."
+          value={campaign}
+          onChange={(e) => setCampaign(e.target.value)}
+        />
       </div>
     </div>
   );
