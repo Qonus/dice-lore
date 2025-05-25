@@ -58,6 +58,7 @@ export async function generateImage(
     `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash-preview-image-generation:generateContent?key=${process.env.GEMINI_API_KEY}`,
     body
   );
-  // console.log(response.data.candidates[0].content.parts);
-  return response.data.candidates[0].content.parts[1].inlineData.data;
+  console.log(response.data.candidates[0].content);
+  const parts = response.data.candidates[0].content.parts
+  return parts[parts.length - 1].inlineData.data;
 }

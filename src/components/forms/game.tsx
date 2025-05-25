@@ -7,8 +7,8 @@ import { FormEvent, useState } from "react";
 import { useMainContext } from "../context";
 
 export default function GameForm() {
-  const { campaign, characters } = useMainContext();
-  const [map, setMap] = useState("");
+  const { campaign } = useMainContext();
+  const [map, setMap] = useState("/api");
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
 
@@ -34,7 +34,9 @@ export default function GameForm() {
     <div>
       <form onSubmit={handleSubmit}>
         <button type="submit">Submit</button>
-        <Image src={`${map}`} width={500} height={500} alt="map" />
+        <div className="w-full h-fit">
+        <Image src={`${map}`} width={1000} height={1000} alt="map" />
+        </div>
       </form>
     </div>
   );
