@@ -43,7 +43,7 @@ export async function dmresponse(text: string, story: IStoryEntry[]) {
         },
       ],
     },
-    contents: [contents],
+    contents: [{parts: [{text: "Let's begin "}]}, ...contents],
     generationConfig: {
       response_mime_type: "application/json",
     },
