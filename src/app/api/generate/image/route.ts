@@ -10,7 +10,7 @@ export async function POST(request: Request) {
 
     const dir = "/tmp";
     const filename =  Date.now().toString() + ".png";
-    const filePath = path.join(process.cwd(), dir, filename);
+    const filePath = path.join(process.env.NODE_ENV == "production" ? "" : process.cwd(), dir, filename);
     await fs.writeFile(filePath, buffer);
     return new Response(JSON.stringify({url: `/api/files/${filename}`}), {
       status: 201,

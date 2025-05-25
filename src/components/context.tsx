@@ -10,6 +10,11 @@ import {
   useState,
 } from "react";
 
+export interface IStoryEntry {
+  role: string;
+  content: string;
+}
+
 export interface ICharacter {
   id: number;
   name: string;
@@ -23,15 +28,15 @@ interface MainContextType {
   setCampaign: Dispatch<SetStateAction<string>>;
   characters: ICharacter[];
   setCharacters: Dispatch<SetStateAction<ICharacter[]>>;
+  story: IStoryEntry[];
+  setStory: Dispatch<SetStateAction<IStoryEntry[]>>;
 }
 
 const MainContext = createContext<MainContextType | undefined>(undefined);
 
 function useLocalStorage<T>(key: string, initialValue: T): [T, Dispatch<SetStateAction<T>>] {
-  // Use a function for initial state to avoid localStorage access on every render
   const [storedValue, setStoredValue] = useState<T>(() => {
     if (typeof window === "undefined") {
-      // Return initial value if not in a browser environment
       return initialValue;
     }
     try {
@@ -43,7 +48,6 @@ function useLocalStorage<T>(key: string, initialValue: T): [T, Dispatch<SetState
     }
   });
 
-  // useEffect to update localStorage when the state changes
   useEffect(() => {
     if (typeof window !== "undefined") {
       try {
@@ -60,6 +64,7 @@ function useLocalStorage<T>(key: string, initialValue: T): [T, Dispatch<SetState
 export function MainProvider({ children }: { children: ReactNode }) {
   const [campaign, setCampaign] = useLocalStorage<string>("dnd_campaign", "");
   const [characters, setCharacters] = useLocalStorage<ICharacter[]>("dnd_characters", []);
+  const [story, setStory] = useLocalStorage<IStoryEntry[]>("dnd_story", []);
 
   return (
     <MainContext.Provider
@@ -68,6 +73,8 @@ export function MainProvider({ children }: { children: ReactNode }) {
         setCampaign,
         characters,
         setCharacters,
+        story,
+        setStory,
       }}
     >
       {children}
