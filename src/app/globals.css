@@ -131,7 +131,7 @@
     @apply flex flex-col gap-5 w-full p-4 sm:p-7 sm:border rounded-lg
   }
 
-  button {
+  button, .button {
     @apply p-2 rounded-lg bg-primary text-primary-foreground hover:bg-primary/90 font-semibold text-lg size-fit
   }
 

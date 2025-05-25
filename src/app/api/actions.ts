@@ -37,6 +37,11 @@ The output should be strictly a JSON object, like this:
 output should be JSON parsable
 `;
 
+export const mapInstruction = `
+System instruction: Generate a top-down map of user's campaign he'll provide. it should be a starting situation that. Output only one part with an image
+keep it simple
+`
+
 export async function generateText(
   body: any // eslint-disable-line
 ) {
@@ -47,19 +52,12 @@ export async function generateText(
 }
 
 export async function generateImage(
-  contents: { role: string; parts: { text: string }[] }[]
+  body: any // eslint-disable-line
 ) {
   const response = await axios.post(
     `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash-preview-image-generation:generateContent?key=${process.env.GEMINI_API_KEY}`,
-    {
-      contents: contents,
-      generationConfig: {
-        responseModalities: ["TEXT", "IMAGE"],
-      },
-    }
+    body
   );
-  const imageData =
-    response.data.candidates[0].content.parts[0].inlinedata.data;
-  const buffer = Buffer.from(imageData);
-  return buffer;
+  // console.log(response.data.candidates[0].content.parts);
+  return response.data.candidates[0].content.parts[1].inlineData.data;
 }
