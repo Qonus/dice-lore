@@ -11,7 +11,7 @@ import Textarea from "../textarea";
 export default function CampaignForm() {
   const [content, setContent] = useState("");
   const [isLoading, setIsLoading] = useState(false);
-  const {campaign, setCampaign} = useMainContext();
+  const {campaign, setCampaign, setStory} = useMainContext();
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
@@ -38,6 +38,7 @@ export default function CampaignForm() {
     });
     // console.log(newCampaign.data);
     setCampaign(newCampaign.data);
+    setStory([]);
     setIsLoading(false);
   };
 

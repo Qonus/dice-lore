@@ -11,6 +11,7 @@ import {
 } from "react";
 
 export interface IStoryEntry {
+  id: number,
   role: string;
   content: string;
 }

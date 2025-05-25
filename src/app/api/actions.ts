@@ -42,9 +42,23 @@ System instruction: Generate a top-down map of user's campaign he'll provide. it
 keep it simple
 `
 
+export const storyInstructions = `
+You are a narrator, describe the situation and ask a character what will they do, you are a dungeon master
+campaign and characters will be provided
+return following JSON object:
+{
+  content: string, (your narration)
+  updateMap: boolean, (to update the game map after your response or no, if yes include following map prompt)
+  mapPrompt: string, (all maps should be top down view, this is your map prompt that will be fed to gemini image generation to generate map image)
+}
+
+if you have an empty content meaning its the beginning of the session then you start a narration, describe starting situation and generate a map
+`
+
 export async function generateText(
   body: any // eslint-disable-line
 ) {
+  console.log(body);
   const response = await axios.post(
     `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${process.env.GEMINI_API_KEY}`, body
   );
