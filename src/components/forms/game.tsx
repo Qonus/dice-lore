@@ -29,12 +29,11 @@ export async function generateMap(prompt: string): Promise<string> {
 }
 
 export async function dmresponse(text: string, story: IStoryEntry[]) {
-  const contents = [
-    ...story.map((s) => ({
+  const contents = story.map((s) => ({
       role: s.role,
       parts: [{ text: s.content }],
-    })),
-  ];
+    }));
+
   const narration = await axios.post("/api/generate/text", {
     system_instruction: {
       parts: [
@@ -43,7 +42,7 @@ export async function dmresponse(text: string, story: IStoryEntry[]) {
         },
       ],
     },
-    contents: [{parts: [{text: "Let's begin "}]}, ...contents],
+    contents: [{role: "user", parts: [{text: "Let's begin "}]}, ...contents],
     generationConfig: {
       response_mime_type: "application/json",
     },
